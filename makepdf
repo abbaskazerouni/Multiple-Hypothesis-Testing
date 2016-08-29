@@ -1,0 +1,33 @@
+
+# file name without the .tex extension
+FILE = bandit multiple hypotheses testing-FWER
+
+all: pdf cleaninterimfiles
+
+pdf:
+        @pdflatex $(FILE)
+        @bibtex $(FILE)
+        @pdflatex $(FILE).tex
+        @pdflatex $(FILE).tex
+
+wordcount:
+        @texcount $(FILE).tex
+
+clean: cleanpdf cleaninterimfiles
+
+cleanpdf:
+        @rm -f $(FILE).pdf
+
+cleaninterimfiles:
+        @rm -f $(FILE).aux
+        @rm -f $(FILE).bbl
+        @rm -f $(FILE).blg
+        @rm -f $(FILE).dvi
+        @rm -f $(FILE).log
+        @rm -f $(FILE).out
+        @rm -f $(FILE).run.xml
+        @rm -f $(FILE).toc
+        @rm -f $(FILE)-blx.bib
+
+spellcheck:
+        @aspell -t check $(FILE).tex
